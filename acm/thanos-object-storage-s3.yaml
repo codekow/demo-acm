@@ -9,7 +9,7 @@ stringData:
     type: s3
     config:
       bucket: acm
-      endpoint: minio.minio.svc.cluster.local:9000
-      insecure: true
+      endpoint: s3-minio.apps.ocp4-927mp-ipi.azure.opentlc.com:443
+      insecure: false
       access_key: minio123
       secret_key: toomanysecrets
