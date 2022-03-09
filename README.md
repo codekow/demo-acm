@@ -26,12 +26,12 @@ oc create secret generic multiclusterhub-operator-pull-secret \
     -n open-cluster-management-observability \
     --from-literal=.dockerconfigjson="$DOCKER_CONFIG_JSON" \
     --type=kubernetes.io/dockerconfigjson
-
-# s3 thanos-storage
+```
+```
+# s3 thanos-storage / cr
 oc apply -f acm/thanos-object-storage-s3.yaml -n open-cluster-management-observability
 oc apply -f acm/multiclusterobservability_cr.yaml
 ```
-
 
 ## hack cloud creds (azure)
 ```
