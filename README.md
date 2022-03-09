@@ -1,5 +1,22 @@
 # General Notes for ACM demo
 
+## Quickstart
+
+setup the `az` command
+
+```
+# install python
+sudo yum -y install python3 python3-pip
+
+# setup python virtual env
+python3 -m venv venv
+. venv/bin/activate
+pip install -U pip
+
+# setup ansible
+pip install -r requirements.txt
+```
+
 ## quickstart minio s3
 ```
 # deploy minio
