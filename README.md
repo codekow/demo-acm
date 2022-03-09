@@ -12,8 +12,8 @@ export MINIO_ROOT_PASSWORD=$(openssl rand -base64 33)
 
 echo ${MINIO_ROOT_USER} / ${MINIO_ROOT_PASSWORD}
 
-oc set env deployment/minio MINIO_ROOT_USER=${MINIO_ROOT_USER}
-oc set env deployment/minio MINIO_ROOT_PASSWORD=$${MINIO_ROOT_PASSWORD}
+oc set env deployment/minio MINIO_ROOT_USER="${MINIO_ROOT_USER}" -n minio
+oc set env deployment/minio MINIO_ROOT_PASSWORD="${MINIO_ROOT_PASSWORD}" -n minio
 ```
 
 ## quickstart observability
