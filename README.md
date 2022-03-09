@@ -33,6 +33,16 @@ oc apply -f acm/thanos-object-storage-s3.yaml -n open-cluster-management-observa
 oc apply -f acm/multiclusterobservability_cr.yaml
 ```
 
+## azure storage principal setup
+See ["Create an Azure service principal"](https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli) and ["Assign an Azure role for access to blob data"](https://docs.microsoft.com/en-us/azure/storage/common/storage-auth-aad-rbac-cli) pages for more details.
+
+```
+az ad sp create-for-rbac --name "<name>" \
+      --role "Storage Blob Data Owner" \
+      --scopes "/subscriptions/<subscription>/resourceGroups/<resource-group>/providers/Microsoft.Storage/storageAccounts/<storage-account>/blobServices/default/containers/<container>" \
+      > azure-principal.json
+```
+
 ## hack cloud creds (azure)
 ```
 oc extract -n kube-system secret/azure-credentials --to=-
