@@ -1,0 +1,68 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: minio
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio
+spec:
+  selector:
+    app: minio
+  ports:
+    - name: minio
+      protocol: TCP
+      port: 9000
+      targetPort: 9000
+    - name: minio-webconsole
+      protocol: TCP
+      port: 9001
+      targetPort: 9001
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minio
+  labels:
+    app: minio
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minio
+  template:
+    metadata:
+      labels:
+        app: minio
+    spec:
+      containers:
+      - name: minio
+        image: minio/minio:latest
+        env:
+          - name: MINIO_ROOT_USER
+            value: minio123
+          - name: MINIO_ROOT_PASSWORD
+            value: toomanysecrets
+        ports:
+        - containerPort: 9000
+        - containerPort: 9001
+        args:
+        - server
+        - /data
+        - --console-address
+        - :9001
+        volumeMounts:
+        - mountPath: /data
+          name: minio
+      volumes:
+      - name: minio
+        persistentVolumeClaim:
+          claimName: minio

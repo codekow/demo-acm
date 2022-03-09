@@ -1,0 +1,30 @@
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: s3
+spec:
+  port:
+    targetPort: minio
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
+  to:
+    kind: Service
+    name: minio
+    weight: 100
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: manage
+spec:
+  port:
+    targetPort: minio-webconsole
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
+  to:
+    kind: Service
+    name: minio
+    weight: 100
