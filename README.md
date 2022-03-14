@@ -47,6 +47,8 @@ List the newly created storage account’s keys
 Create an Azure storage container
 `az storage container create -n prometheus --account-name key1 --account-key 8Ebx646mnzGFjJcNtyn1017oE8y46WJayXTVs0MyA4nlJ6olrQOKqNJ2BMG0THLkfyEZG8VrS/i5Vm2sHD48Ig== --public-access container`
 
+Make sure you can upload to the storage
+`    az storage blob upload --account-name acmstorageobserv --account-key 8Ebx646mnzHKjJcFtyn1017oE8y24WJayXTVs0MyA4nlJ6olrQOKqNJ2BMG0THLkfyEZG8VrS/i5Vm2sHD48Ig== --container-name prometheus --file `/Desktop/screenshot.png --name myblob
 ## azure storage principal setup
 See ["Create an Azure service principal"]() and ["Assign an Azure role for access to blob data"]() pages for more details.
 
@@ -56,19 +58,19 @@ az ad sp create-for-rbac --name "\<name\>" \\
 > azure-principal.json
 
 Create storage inside of ACM:
-`apiVersion: v1`
-`kind: Secret`
-`metadata:`
-`  name: thanos-object-storage`
-`  namespace: open-cluster-management-observability`
-`type: Opaque`
-`stringData:`
-`  thanos.yaml: |`
-`    type: AZURE`
-`    config:`
-`      storage_account: acmstorageobserv`
-`      storage_account_key: 8Ebx646mnzHKjJcFtyn1046oF9y24WJayXTVs0MyA4nlJ6olrQOKqNJ2BMG0THLkfyEZG8VrS/i5Vm2sHD48Ig==`
-`      container: prometheus`
-`      endpoint: acmstorageobserv.blob.core.windows.net`
-`      max`_retries: 0
+	apiVersion: v1
+	kind: Secret
+	metadata:
+	  name: thanos-object-storage
+	  namespace: open-cluster-management-observability
+	type: Opaque
+	stringData:
+	  thanos.yaml: |
+	    type: AZURE
+	    config:
+	      storage_account: acmstorageobserv
+	      storage_account_key: 8Ebx646mnzHKjJcFtyn1017oE8y24WJayXTVs0MyA4nlJ6olrQOKqNJ2BMG0THLkfyEZG8VrS/i5Vm2sHD48Ig==
+	      container: prometheus
+	      endpoint: acmstorageobserv.blob.core.windows.net
+	      max_retries: 0
 
