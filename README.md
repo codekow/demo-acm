@@ -60,7 +60,8 @@ az ad sp create-for-rbac --name "\<name\>" \\
 > azure-principal.json
 
 ## Create storage inside of ACM:
-`	apiVersion: v1
+```
+	apiVersion: v1
 	kind: Secret
 	metadata:
 	  name: thanos-object-storage
@@ -74,5 +75,6 @@ az ad sp create-for-rbac --name "\<name\>" \\
 	      storage_account_key: 8Ebx646mnzHKjJcFtyn1017oE8y24WJayXTVs0MyA4nlJ6olrQOKqNJ2BMG0THLkfyEZG8VrS/i5Vm2sHD48Ig==
 	      container: prometheus
 	      endpoint: acmstorageobserv.blob.core.windows.net
-	      max_retries: 0`
+	      max_retries: 0
 
+```
