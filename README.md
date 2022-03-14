@@ -32,22 +32,23 @@ oc apply -f acm/multiclusterobservability_cr.yaml
 oc extract -n kube-system secret/azure-credentials --to=-
 az login --service-principal -u [client_id]() -p [auzre_client_secret]() --tenant [tenant_id]()
 
-Login to Azure with the `az` command line tool using the cluster credentials revealed in the preceding command:
+## Login to Azure with the `az` command line tool using the cluster credentials revealed in the preceding command:
 az login --service-principal -u 892ff158b-abc5-43fe-99a2-d85963cca6af -p rw7q6f/]TwraMm6.?6n0C_lU[:7ci8HI --tenant 1ce7852f-dcf3-31bc-afe6-3bf81ab721fb
 ]()
-List your Azure resources and locate an Azure resource group that is appropriate for the storage account
+
+## List your Azure resources and locate an Azure resource group that is appropriate for the storage account
 `az resource list`
 
-Create the storage account
+## Create the storage account
 `az storage account create --name acmstorageobserv --resource-group DefaultResourceGroup-CUS --location centralus --sku Standard_LRS`
 
-List the newly created storage account’s keys
+## List the newly created storage account’s keys
 `az storage account keys list   --resource-group DefaultResourceGroup-CUS   --account-name acmstorageobserv`
 
-Create an Azure storage container
+## Create an Azure storage container
 `az storage container create -n prometheus --account-name key1 --account-key 8Ebx646mnzGFjJcNtyn1017oE8y46WJayXTVs0MyA4nlJ6olrQOKqNJ2BMG0THLkfyEZG8VrS/i5Vm2sHD48Ig== --public-access container`
 
-Make sure you can upload to the storage
+## Make sure you can upload to the storage
 `    az storage blob upload --account-name acmstorageobserv --account-key 8Ebx646mnzHKjJcFtyn1017oE8y24WJayXTVs0MyA4nlJ6olrQOKqNJ2BMG0THLkfyEZG8VrS/i5Vm2sHD48Ig== --container-name prometheus --file /Desktop/screenshot.png --name myblob`
 
 ## azure storage principal setup
@@ -58,7 +59,7 @@ az ad sp create-for-rbac --name "\<name\>" \\
   --scopes "/subscriptions/\<subscription\>/resourceGroups/\<resource-group\>/providers/Microsoft.Storage/storageAccounts/\<storage-account\>/blobServices/default/containers/\<container\>" \\
 > azure-principal.json
 
-Create storage inside of ACM:
+## Create storage inside of ACM:
 `	apiVersion: v1
 	kind: Secret
 	metadata:
